@@ -27,7 +27,7 @@ namespace AuthWithB2C
                         .AcquireTokenSilent(Constants.Scopes, accounts.FirstOrDefault())
                         .ExecuteAsync();
 
-                    await Navigation.PushAsync(new GraphData(result));
+                    await Navigation.PushAsync(new LoginResult(result));
                 }
             }
             catch
@@ -50,16 +50,11 @@ namespace AuthWithB2C
                     .WithParentActivityOrWindow(App.UIParent)
                     .ExecuteAsync();
 
-                await Navigation.PushAsync(new GraphData(result));
+                await Navigation.PushAsync(new LoginResult(result));
             }
-            catch (MsalException ex)
+            catch (MsalUiRequiredException ex)
             {
-                if (ex.Message != null && ex.Message.Contains("AADB2C90118"))
-                {
-                    //result = await OnForgotPassword();
-                    //await Navigation.PushAsync(new GraphData(result));
-                }
-                else if (ex.ErrorCode != "authentication_canceled")
+                if (ex.ErrorCode != "authentication_canceled")
                 {
                     await DisplayAlert("An error has occurred", "Exception message: " + ex.Message, "Dismiss");
                 }
