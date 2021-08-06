@@ -11,5 +11,6 @@ namespace AuthWithB2C
         public static readonly string AuthorityBase = $"https://{TenantName}.b2clogin.com/tfp/{TenantId}/";
         public static readonly string AuthoritySignIn = $"{AuthorityBase}{SignInPolicy}";
         public static readonly string[] Scopes = new string[]{ "openid", "offline_access" };
+        public static readonly string TwitchClientId = "kdmjkggyqxq6izqdyouyl4k8pqelll";
     }
 }
